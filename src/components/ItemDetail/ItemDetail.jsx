@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../../data/asyncMock.jsx';
 import Loading from '../Loading/Loading.jsx';
-import {useCart} from "@/Store/useCart.jsx";
+import {useCart} from "@/store/useCart.jsx";
 
 
 export default function ItemDetail() {

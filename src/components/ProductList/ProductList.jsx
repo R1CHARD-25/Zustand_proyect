@@ -1,5 +1,5 @@
 
-import { useCart } from "../../store/useCart";
+import { useCart } from "@/store/useCart";
 import { ProductCard } from "../ProductCart/ProductCart.jsx";
 import styles from "../ProductList/styles.module.css";
 

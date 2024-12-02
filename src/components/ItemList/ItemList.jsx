@@ -2,7 +2,7 @@ import Item from "../Item/Item"
 import { getProducts } from "../../data/asyncMock.jsx"
 import { useEffect, useState } from "react"
 import Loading from "../Loading/Loading";
-import { useCart } from "../../store/useCart";
+import { useCart } from "@/store/useCart";
 
 
 export default function ItemList({ products: initialProducts }){
