@@ -1,6 +1,6 @@
 
 
-export const CartItem = ({ id, img, price, quantity }) => {
+export const CartItem = ({ id, img, price, quantity,name }) => {
 
 
     return (
@@ -12,16 +12,12 @@ export const CartItem = ({ id, img, price, quantity }) => {
                     {quantity}
                 </span>
             </div>
-
-
             <div className="flex flex-col items-start">
-                <span className="font-bold text-white">Producto {id}</span>
+                <span className="font-bold text-white"> {name}</span>
                 <p className="text-xl text-gray-400 font-normal">
                     Precio por unidad: <b className="text-white font-bold">${price}</b>
                 </p>
             </div>
-
-
 
         </div>
     );

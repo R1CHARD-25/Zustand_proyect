@@ -33,7 +33,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* Imagen con animación */}
+
                     <img
                         src={Logo_nav}
                         alt="Logo"

@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { products } from "../data/asyncMock";
-
 export const useCart = create((set, get) => ({
     products: products,
     cartItems: [],
@@ -9,22 +8,35 @@ export const useCart = create((set, get) => ({
     addToCart: (productId, quantity) => {
         set(() => {
             const product = get().products.find((item) => item.id === productId);
-            if (product && product.stock >= quantity) {
+            if (product) {
+                // Find the cart item
                 const cartItemFound = get().cartItems.find((cartItem) => cartItem.id === productId);
+                // Ensure stock is respected
                 if (cartItemFound) {
-                    return {
-                        cartItems: get().cartItems.map((cartItem) =>
-                            cartItem.id === productId
-                                ? { ...cartItem, quantity: cartItem.quantity + quantity }
-                                : cartItem
-                        ),
-                        totalPrice: get().totalPrice + product.price * quantity,
-                    };
+                    const newQuantity = cartItemFound.quantity + quantity;
+                    if (newQuantity <= product.stock) {
+                        return {
+                            cartItems: get().cartItems.map((cartItem) =>
+                                cartItem.id === productId
+                                    ? { ...cartItem, quantity: newQuantity }
+                                    : cartItem
+                            ),
+                            totalPrice: get().totalPrice + product.price * quantity,
+                        };
+                    } else {
+                        alert(`No puedes agregar más de ${product.stock} unidades de este producto.`);
+                        return get();
+                    }
                 } else {
-                    return {
-                        cartItems: [...get().cartItems, { ...product, quantity }],
-                        totalPrice: get().totalPrice + product.price * quantity,
-                    };
+                    if (quantity <= product.stock) {
+                        return {
+                            cartItems: [...get().cartItems, { ...product, quantity }],
+                            totalPrice: get().totalPrice + product.price * quantity,
+                        };
+                    } else {
+                        alert(`No puedes agregar más de ${product.stock} unidades de este producto.`);
+                        return get();
+                    }
                 }
             }
         });
@@ -57,7 +69,6 @@ export const useCart = create((set, get) => ({
             return state;
         });
     },
-
 
     clearCart: () => {
         set({
