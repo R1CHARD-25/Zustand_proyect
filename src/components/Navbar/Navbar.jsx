@@ -1,9 +1,23 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 export default function Navbar() {
+    const [searchText, setSearchText] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearchChange = (event) => {
+        setSearchText(event.target.value);
+    };
+
+    const handleSearchSubmit = () => {
+        navigate(`/?search=${searchText}`);
+    };
+
     return (
-        <div className="flex items-center justify-center p-5">
+        <div className="flex items-center justify-center p-5 max-w-[800px]" >
             <div className="rounded-lg bg-gray-200 p-1 shadow-md">
                 <div className="flex">
-                    {/* Icono de búsqueda */}
+
                     <div className="flex w-10 items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-white p-3">
                         <svg
                             viewBox="0 0 20 20"
@@ -14,19 +28,20 @@ export default function Navbar() {
                         </svg>
                     </div>
 
-                    {/* Campo de texto para la búsqueda */}
                     <input
                         type="text"
                         className="w-full max-w-[160px] bg-white pl-2 text-black font-semibold outline-none rounded-l-lg"
                         placeholder="Buscar..."
                         id="search"
+                        value={searchText}
+                        onChange={handleSearchChange}
                     />
 
-                    {/* Botón de búsqueda */}
                     <input
                         type="button"
                         value="Buscar"
-                        className="bg-blue-500 p-2 rounded-tr-lg rounded-br-lg text-black font-semibold hover:bg-blue-800 transition-colors"
+                        className="bg-blue-500 p-2 rounded-tr-lg rounded-br-lg text-black font-semibold hover:bg-blue-800 transition-colors cursor-pointer"
+                        onClick={handleSearchSubmit}
                     />
                 </div>
             </div>

@@ -7,7 +7,7 @@ export default {
 	theme: {
 		extend: {
 			backgroundImage: {
-				'Mountain': "url('/moun.jpg')", // Aquí se hace la corrección, solo necesitas '/moun.jpg'
+				'Mountain': "url('/alto.jpg')",
 			},
 		},
 	},

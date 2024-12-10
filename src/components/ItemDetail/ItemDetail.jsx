@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getProductById } from '../../data/asyncMock.jsx';
 import Loading from '../Loading/Loading.jsx';
 import {useCart} from "@/store/useCart.jsx";
+import Add from "@/components/Add/Add.jsx";
 
 export default function ItemDetail() {
     const { productId } = useParams();
@@ -47,7 +48,7 @@ export default function ItemDetail() {
     }
 
     return (
-        <div className='container mx-auto max-w-[1000px]'>
+        <div className='container mx-auto max-w-[900px]'>
 
             <div className="product-card rounded-md shadow-xl overflow-hidden relative cursor-pointer snap-start shrink-0 py-8 px-6 bg-black bg-opacity-30 backdrop-blur-lg flex flex-col items-center justify-center gap-3 transition-all duration-300 group">
 
@@ -84,7 +85,7 @@ export default function ItemDetail() {
 
                 <div className='flex'>
                     <button onClick={decrementQuantity} className="cursor-pointer transition-all bg-green-900 text-white px-6 py-2 rounded-lg border-green-700 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">-</button>
-                    <p className='text-2xl text-black text-[20px] px-[10px]'>{quantity}</p>
+                    <p className='text-2xl text-white text-[20px] px-[10px]'>{quantity}</p>
                     <button onClick={incrementQuantity} className="cursor-pointer transition-all bg-green-900 text-white px-6 py-2 rounded-lg border-green-700 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">+</button>
                 </div>
 
@@ -92,18 +93,11 @@ export default function ItemDetail() {
                     <p className="text-2xl font-semibold text-[#495c48]">Precio: ${product.price}</p>
                 </div>
 
-                <div className="add-to-cart-container">
-                    <button onClick={handleAddToCart}
-                            className="overflow-hidden w-[225px] p-2 h-12 bg-black text-white border-none rounded-md text-xl font-bold cursor-pointer relative z-10 group"
-                    >
-                        Añadir al carrito!
-                        <span className="absolute w-[250px] h-32 -top-8 -left-2 bg-green-200 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-bottom"></span>
-                        <span className="absolute w-[250px] h-32 -top-8 -left-2 bg-green-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-bottom"></span>
-                        <span className="absolute w-[250px] h-32 -top-8 -left-2 bg-green-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-bottom"></span>
-                        <span className="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-2.5 left-6 z-10">El carrito te espera!</span>
+                <div>
+                    <button onClick={handleAddToCart}>
+                        <Add/>
                     </button>
                 </div>
-
             </div>
         </div>
     );

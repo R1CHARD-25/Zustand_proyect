@@ -1,10 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from 'react-router-dom';
+import { getProducts } from '../../data/asyncMock';
 import ItemList from "@/components/ItemList/ItemList.jsx";
 import Logo_nav from "../../../public/pajaro.gif";
 import Logo from "../../../public/montañaspng.png";
+import Loading from "../Loading/Loading"; // Importar el componente Loading
 
 export default function Home() {
     const [isHovered, setIsHovered] = useState(false);
+    const [products, setProducts] = useState([]);
+    const [searchParams] = useSearchParams();
+    const [loading, setLoading] = useState(true); // Estado para el indicador de carga
+    const searchTerm = searchParams.get('search') || '';
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true); // Iniciar la carga
+            const allProducts = await getProducts();
+            setProducts(allProducts);
+            setLoading(false); // Finalizar la carga
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -13,9 +31,7 @@ export default function Home() {
             </div>
 
             <div className="text-[30px] text-white">
-
                 <marquee behavior="" direction="right">
-
                     <div
                         className="relative inline-block"
                         onMouseEnter={() => setIsHovered(true)}
@@ -28,11 +44,9 @@ export default function Home() {
                         >
                             <div className="bg-slate-800  text-white rounded-lg px-1 py-0">
                                 <p className="font-bold text-xl mb-1 cursor-pointer">Hola bienvenido! 👋</p>
-
                             </div>
                         </div>
                     </div>
-
 
                     <img
                         src={Logo_nav}
@@ -42,13 +56,19 @@ export default function Home() {
                 </marquee>
             </div>
 
-            <h2 className="text-white text-3xl text-center font-bold">¿QUÉ HAY POR AQUÍ?</h2>
+            <h2 className="text-white text-3xl text-center font-bold">
+                {searchTerm ? `Resultados de la búsqueda para "${searchTerm}"` : '¿QUÉ HAY POR AQUÍ?'}
+            </h2>
             <p className="text-xl text-white text-center">
-                Aquí encontrarás todo lo necesario para tus excursiones, para esos días fríos o cálidos donde necesites
-                los productos que nosotros podemos ofrecer.
+                {searchTerm ? `Aquí encontrarás los productos que coinciden con tu búsqueda.` : `Aquí encontrarás todo lo necesario para tus excursiones, para esos días fríos o cálidos donde necesites los productos que nosotros podemos ofrecer.`}
             </p>
 
-            <ItemList />
+            {/* Mostrar el indicador de carga o ItemList */}
+            {loading ? (
+                <Loading />
+            ) : (
+                <ItemList searchTerm={searchTerm} products={products} />
+            )}
         </div>
     );
 }
