@@ -9,9 +9,7 @@ export const useCart = create((set, get) => ({
         set(() => {
             const product = get().products.find((item) => item.id === productId);
             if (product) {
-                // Find the cart item
                 const cartItemFound = get().cartItems.find((cartItem) => cartItem.id === productId);
-                // Ensure stock is respected
                 if (cartItemFound) {
                     const newQuantity = cartItemFound.quantity + quantity;
                     if (newQuantity <= product.stock) {
