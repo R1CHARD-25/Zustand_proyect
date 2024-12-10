@@ -4,21 +4,21 @@ import { getProducts } from '../../data/asyncMock';
 import ItemList from "@/components/ItemList/ItemList.jsx";
 import Logo_nav from "../../../public/pajaro.gif";
 import Logo from "../../../public/montañaspng.png";
-import Loading from "../Loading/Loading"; // Importar el componente Loading
+import Loading from "../Loading/Loading";
 
 export default function Home() {
     const [isHovered, setIsHovered] = useState(false);
     const [products, setProducts] = useState([]);
     const [searchParams] = useSearchParams();
-    const [loading, setLoading] = useState(true); // Estado para el indicador de carga
+    const [loading, setLoading] = useState(true);
     const searchTerm = searchParams.get('search') || '';
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true); // Iniciar la carga
+            setLoading(true);
             const allProducts = await getProducts();
             setProducts(allProducts);
-            setLoading(false); // Finalizar la carga
+            setLoading(false);
         };
 
         fetchData();
@@ -63,7 +63,6 @@ export default function Home() {
                 {searchTerm ? `Aquí encontrarás los productos que coinciden con tu búsqueda.` : `Aquí encontrarás todo lo necesario para tus excursiones, para esos días fríos o cálidos donde necesites los productos que nosotros podemos ofrecer.`}
             </p>
 
-            {/* Mostrar el indicador de carga o ItemList */}
             {loading ? (
                 <Loading />
             ) : (
